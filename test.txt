@@ -1,0 +1,31 @@
+5 endpoints
+
+1) create USER;
+2) update USER;
+3) return all USERS;
+4) delete USER By id;
+5) find USER by id
+
+
+1) create USER
+   POST /api/v1/users/create_user
+   Return object in JSON format (result)
+   в параметрах(USER)
+   200 OK
+2) update USER by id
+   PUT /api/v1/users/id
+   Return object in JSON format (result)
+   в параметрах(id)
+   200 OK
+3) return all USERS
+   GET /api/v1/users/all
+   return all USERS 
+   200 OK 
+4) delete USER by id
+   DELETE /api/v1/users/id
+   Return object in JSON format (result)
+   в параметрах(id)
+5) find USER by id
+   GET /api/v1/users/id
+   Return object in JSON format (result)
+   в параметрах(id)
