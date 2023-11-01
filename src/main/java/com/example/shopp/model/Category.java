@@ -12,12 +12,13 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "categories")
-public class Categories {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String category_name;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Product> products;
 }

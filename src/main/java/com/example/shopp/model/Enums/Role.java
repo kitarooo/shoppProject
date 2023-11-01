@@ -1,2 +1,5 @@
-package com.example.shopp.model.Enums;public enum Role {
+package com.example.shopp.model.Enums;
+
+public enum Role {
+    ADMIN, USER
 }
