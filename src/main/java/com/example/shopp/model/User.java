@@ -31,6 +31,6 @@ public class User {
     @Column(unique = true)
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Order> orders;
 }

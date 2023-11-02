@@ -1,5 +1,5 @@
 package com.example.shopp.model.Enums;
 
 public enum Role {
-    ADMIN, USER
+    ADMIN, USER, CUSTOMER, SELLER
 }
