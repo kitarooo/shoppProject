@@ -1,4 +1,4 @@
-5 endpoints
+5 endpoints for (USER):
 
 1) create USER;
 2) update USER;
@@ -23,9 +23,65 @@
    200 OK 
 4) delete USER by id
    DELETE /api/v1/users/id
-   Return object in JSON format (result)
+   Return object in JSON format with MESSAGE("User name was updated!")
    в параметрах(id)
+   200 OK
 5) find USER by id
    GET /api/v1/users/id
-   Return object in JSON format (result)
+   Return object in JSON format with MESSAGE("User name was updated!")
    в параметрах(id)
+   200 OK;
+
+
+5 endpoints for (CATEGORY):
+
+1) create CATEGORY
+2) get all CATEGORY
+3) find CATEGORY by id
+4) update CATEGORY by id
+5) delete CATEGORY by id
+
+
+1) create CATEGORY
+   POST /api/v1/categories/createCategory
+   Return object in JSON format (result)
+   в параметрах(CATEGORY)
+   200 OK
+2) get all categories
+   GET /api/v1/categories/allCategory
+   Return all categories
+   200 OK
+3) find CATEGORY by id
+   GET /api/v1/categories/{id}
+   Return category with id
+   в параметрах(ID)
+   200 OK
+4) updatee category by id
+   PUT /api/v1/categories/{id}
+   Return object in JSON format with MESSAGE("Category name was updated!")
+   в параметрах(ID)
+   200 OK
+5) delete category by id
+   DELETE /api/v1/categories/{id}
+   RETURN object in JSON format with MESSAGE("Category was deleted!")
+   200 OK;
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
