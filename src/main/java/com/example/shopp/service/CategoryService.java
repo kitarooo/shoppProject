@@ -1,7 +1,9 @@
 package com.example.shopp.service;
 
 import com.example.shopp.model.Category;
+import com.example.shopp.model.Product;
 import com.example.shopp.repository.CategoryRepository;
+import com.example.shopp.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     public List<Category> allCategories() {
         return categoryRepository.findAll();
@@ -31,10 +34,10 @@ public class CategoryService {
 
     public Category updateCategoryById(Long id, String categoryName) {
         Category category = categoryRepository.findAllById(id).orElse(null);
-
+        if (category != null) {
             category.setCategoryName(categoryName);
             categoryRepository.save(category);
-
+        }
         return category;
     }
 

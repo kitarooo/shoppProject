@@ -1,6 +1,7 @@
 package com.example.shopp.controller;
 
 import com.example.shopp.model.Category;
+import com.example.shopp.model.Product;
 import com.example.shopp.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
