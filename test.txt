@@ -31,7 +31,7 @@
    Return object in JSON format with MESSAGE("User name was updated!")
    в параметрах(id)
    200 OK;
-
+------------------------------------------------------------------------------------------------------------------------
 
 5 endpoints for (CATEGORY):
 
@@ -65,8 +65,38 @@
    DELETE /api/v1/categories/{id}
    RETURN object in JSON format with MESSAGE("Category was deleted!")
    200 OK;
-  
+------------------------------------------------------------------------------------------------------------------------
 
+5 endpoints for (PRODUCT):
+
+1) find all products
+2) create product
+3) find product by id
+4) update product by id
+5) delete product by id
+
+
+1) find all products
+   GET /api/v1/products/allProducts
+   RETURN all products
+   200 OK
+2) create product
+   POST /api/v1/products/createProduct
+   RETURN object in JSON format with MESSAGE("Product was created!")
+   200 OK
+3) find product by id
+   GET /api/v1/products/{id}
+   RETURN product by id
+   200 OK
+4) update product by id
+   PUT /api/v1/products/{id}
+   Return object in JSON format with MESSAGE("Product was updated!")
+   200 OK
+5) delete product by id
+   DELETE /api/v1/products/{id}
+   Return object in JSON format with MESSAGE("Product was delete!")
+   200 OK;
+------------------------------------------------------------------------------------------------------------------------
 
 
 
