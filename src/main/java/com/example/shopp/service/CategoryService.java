@@ -31,10 +31,9 @@ public class CategoryService {
 
     public Category updateCategoryById(Long id, String categoryName) {
         Category category = categoryRepository.findAllById(id).orElse(null);
-        if (category != null) {
+
             category.setCategoryName(categoryName);
             categoryRepository.save(category);
-        }
 
         return category;
     }

@@ -53,9 +53,9 @@ public class CategoryController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Object> updateCategoryById(@PathVariable Long id, String newCategoryName) {
+    public ResponseEntity<Object> updateCategoryById(@PathVariable Long id, String categoryName) {
         Model model = new Model();
-        categoryService.updateCategoryById(id, newCategoryName);
+        categoryService.updateCategoryById(id, categoryName);
         model.setResult("Category name was updated!");
         return ResponseEntity.ok(model.getResult());
     }
