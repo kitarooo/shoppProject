@@ -1,0 +1,6 @@
+1) Create user (if this.email == email) { return exception, first check after save user}
+2) getUserByID (user существует или нет?)
+3) dto(getter and setter)
+4) exception
+5) add script for category and product
+6) change and clean code

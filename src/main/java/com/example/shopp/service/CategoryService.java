@@ -1,7 +1,6 @@
 package com.example.shopp.service;
 
-import com.example.shopp.model.Category;
-import com.example.shopp.model.Product;
+import com.example.shopp.entity.Category;
 import com.example.shopp.repository.CategoryRepository;
 import com.example.shopp.repository.ProductRepository;
 import lombok.AllArgsConstructor;

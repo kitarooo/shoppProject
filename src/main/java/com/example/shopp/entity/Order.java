@@ -1,4 +1,4 @@
-package com.example.shopp.model;
+package com.example.shopp.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

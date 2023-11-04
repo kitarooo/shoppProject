@@ -1,14 +1,14 @@
-package com.example.shopp.model;
+package com.example.shopp.entity;
 
-import com.example.shopp.model.Enums.Role;
+import com.example.shopp.entity.Enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -21,15 +21,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     @Column
-    private String first_name;
-    @Column(nullable = false)
-    private String last_name;
-    @Column(unique = true)
     private String email;
     @Column(unique = true)
-    private int phone_number;
-    @Column(unique = true)
     private String password;
+    @Embedded
+    private UserInfo userInfo;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Order> orders;

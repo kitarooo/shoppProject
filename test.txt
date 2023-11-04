@@ -18,7 +18,7 @@
    в параметрах(id)
    200 OK
 3) return all USERS
-   GET /api/v1/users/all
+   GET /api/v1/users/allUsers
    return all USERS 
    200 OK 
 4) delete USER by id

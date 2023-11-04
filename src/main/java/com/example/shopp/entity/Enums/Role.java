@@ -1,4 +1,4 @@
-package com.example.shopp.model.Enums;
+package com.example.shopp.entity.Enums;
 
 public enum Role {
     ADMIN, USER, CUSTOMER, SELLER
