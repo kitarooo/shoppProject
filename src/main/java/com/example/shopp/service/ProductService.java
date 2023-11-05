@@ -1,9 +1,13 @@
 package com.example.shopp.service;
 
+import com.example.shopp.dto.ProductRequest;
 import com.example.shopp.entity.Category;
 import com.example.shopp.entity.Product;
+import com.example.shopp.entity.User;
+import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,35 +17,57 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
+    public Product checkProductOnExistAndReturn(Long id) {
+        return productRepository.findAllById(id).orElseThrow(
+                () -> new NotFoundException("Product was not found!"));
+    }
 
+    public Product parseToProduct(ProductRequest request) {
+        return Product.builder().productName(request.getProductName()).
+                productPrice(request.getProductPrice()).
+                description(request.getDescription()).build();
+    }
     public List<Product> findAllProducts() {
         return productRepository.findAll();
     }
 
-    public Product createProduct(Product product) {
-        productRepository.save(product);
-        return product;
-    }
+    public ResponseEntity<Object> createProduct(ProductRequest productRequest) {
+        Model model = new Model();
 
-    public Product findProductById(Long id) {
-       return productRepository.findAllById(id).orElse(null);
-    }
-
-    public Product updateProductById(Long id, String product_name, double product_price, String description, Category category) {
-        Product product = productRepository.findAllById(id).orElse(null);
-
-        if (product != null) {
-            product.setProduct_name(product_name);
-            product.setProduct_price(product_price);
-            product.setDescription(description);
-            product.setCategory(category);
-            productRepository.save(product);
+        if (productRepository.findAllByProductName(productRequest.getProductName()).isPresent()) {
+            model.setResult("Product already exist!");
+            return ResponseEntity.ok(model.getResult());
         }
+        productRepository.save(parseToProduct(productRequest));
+        model.setResult("Product was created!");
 
-        return product;
+        return ResponseEntity.ok(model.getResult());
     }
 
-    public void deleteProductById(Long id) {
+    public ProductRequest getProductById(Long id) {
+        Product product = checkProductOnExistAndReturn(id);
+        return ProductRequest.builder().productName(product.getProductName())
+                .productPrice(product.getProductPrice())
+                .description(product.getDescription()).build();
+    }
+
+    public ResponseEntity<Object> updateProductById(Long id, ProductRequest productRequest) {
+        Model model = new Model();
+        Product product = checkProductOnExistAndReturn(id);
+
+        product.setProductName(productRequest.getProductName());
+        product.setProductPrice(productRequest.getProductPrice());
+        product.setDescription(productRequest.getDescription());
+        product.setCategory(product.getCategory());
+        productRepository.save(product);
+        model.setResult("Product was updated!");
+        return ResponseEntity.ok(model.getResult());
+    }
+
+    public ResponseEntity<Object> deleteProductById(Long id) {
+        Model model = new Model();
         productRepository.deleteById(id);
+        model.setResult("Product was deleted!");
+        return ResponseEntity.ok(model.getResult());
     }
 }

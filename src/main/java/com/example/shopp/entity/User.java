@@ -1,7 +1,9 @@
 package com.example.shopp.entity;
 
-import com.example.shopp.entity.Enums.Role;
+import com.example.shopp.dto.UserInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import java.util.List;
@@ -12,21 +14,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @Email
     @Column
     private String email;
     @Column(unique = true)
     private String password;
     @Embedded
     private UserInfo userInfo;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Order> orders;
 }

@@ -4,3 +4,25 @@
 4) exception
 5) add script for category and product
 6) change and clean code
+
+
+
+
+problems:
+add user with json(all null)
+update user request(charset=UTF-8' is not supported)
+g
+
+
+done:
+delete
+get user info
+add user with form-data
+
+
+
+
+
+
+
+продукты - заказы - детали заказа

@@ -1,8 +1,8 @@
 package com.example.shopp.controller;
 
+import com.example.shopp.dto.CategoryRequest;
 import com.example.shopp.entity.Category;
 import com.example.shopp.service.CategoryService;
-import com.example.shopp.service.Model;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,65 +15,28 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @GetMapping("/allCategory")
-    public List<Category> findAllCategories() {
-        return categoryService.allCategories();
+    @GetMapping("/allCategories")
+    public List<Category> getAllCategories() {
+        return categoryService.getAllCategories();
     }
 
     @PostMapping("/createCategory")
-    public ResponseEntity<Object> createCategory(Category category) {
-        Model model = new Model();
-        categoryService.createCategory(category);
-        model.setResult("Category was created!");
-        return ResponseEntity.ok(model.getResult());
+    public ResponseEntity<Object> createCategory(CategoryRequest categoryRequest) {
+        return categoryService.createCategory(categoryRequest);
     }
 
-    /*@GetMapping("/{categoryName}")
-    public ResponseEntity<Object> findCategoryByCategoryName(@PathVariable String categoryName) {
-        Category category = categoryService.findCategoryByCategoryName(categoryName);
-        if (category != null) {
-            return ResponseEntity.ok().body(category);
-        } else {
-            Model model = new Model();
-            model.setResult("Category was not found!");
-            return ResponseEntity.ok(model.getResult());
-        }
-    }*/
-
     @GetMapping("{id}")
-    public ResponseEntity<Object> findCategoryById(@PathVariable Long id) {
-        Category category = categoryService.findCategoryById(id);
-
-        if (category != null) {
-            return ResponseEntity.ok().body(category);
-        } else {
-            Model model = new Model();
-            model.setResult("Category was not found");
-            return ResponseEntity.ok(model.getResult());
-        }
+    public CategoryRequest getCategoryById(@PathVariable Long id) {
+        return categoryService.getCategoryById(id);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Object> updateCategoryById(@PathVariable Long id, String categoryName) {
-        Model model = new Model();
-        categoryService.updateCategoryById(id, categoryName);
-        model.setResult("Category name was updated!");
-        return ResponseEntity.ok(model.getResult());
+    public ResponseEntity<Object> updateCategoryById(@PathVariable Long id, CategoryRequest categoryRequest) {
+        return categoryService.updateCategoryById(id, categoryRequest);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Object> deleteCategoryById(@PathVariable Long id) {
-        Model model = new Model();
-        categoryService.deleteCategoryById(id);
-        model.setResult("Category was deleted!");
-        return ResponseEntity.ok(model.getResult());
+        return categoryService.deleteCategoryById(id);
     }
-
-    /*@DeleteMapping("{categoryName}")
-    public ResponseEntity<Object> deleteCategoryByCategoryName(@PathVariable String category_name) {
-        Model model = new Model();
-        categoryService.deleteCategoryByCategoryName(category_name);
-        model.setResult("Category with name:" + category_name + ", was deleted");
-        return ResponseEntity.ok(model.getResult());
-    }*/
 }

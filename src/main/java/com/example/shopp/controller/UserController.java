@@ -1,10 +1,9 @@
 package com.example.shopp.controller;
 
+import com.example.shopp.dto.UserInfo;
 import com.example.shopp.dto.UserRequest;
 import com.example.shopp.entity.User;
-import com.example.shopp.entity.UserInfo;
 import com.example.shopp.service.UserService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +17,13 @@ public class UserController {
     private final UserService service;
 
     @GetMapping("/allUsers")
-    public List<User> findAll() {
+    public List<User> getAll() {
         return service.findAll();
-        //getAllUsers
     }
 
     @PostMapping("/createUser")
-    public ResponseEntity<Object> addUser(User user) {
-        return service.createUser(user);
+    public ResponseEntity<Object> addUser(UserRequest userRequest,UserInfo userInfo) {
+        return service.createUser(userInfo, userRequest);
     }
 
     @GetMapping("/findUserWith/{id}")
@@ -35,11 +33,11 @@ public class UserController {
 
     @PutMapping("/updateUserRequest/{id}")
     public ResponseEntity<Object> updateUserRequestById(@PathVariable Long id,
-                                                        @Valid @RequestBody UserRequest userRequest) {
+                                                        UserRequest userRequest) {
         return service.updateUserRequest(userRequest, id);
     }
     @PutMapping("/updateUserInfo/{id}")
-    public ResponseEntity<Object> updateUserInfo(@PathVariable Long id, @Valid @RequestBody UserInfo userInfo) {
+    public ResponseEntity<Object> updateUserInfo(@PathVariable Long id,UserInfo userInfo) {
         return service.updateUserInfoById(id, userInfo);
     }
 

@@ -1,8 +1,8 @@
 package com.example.shopp.service;
 
+import com.example.shopp.dto.UserInfo;
 import com.example.shopp.dto.UserRequest;
 import com.example.shopp.entity.User;
-import com.example.shopp.entity.UserInfo;
 import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -24,15 +24,24 @@ public class UserService {
         return userRepository.findAllById(id).orElseThrow( () -> new NotFoundException("User was not found"));
     }
 
-    public ResponseEntity<Object> createUser(User user) {
+    public ResponseEntity<Object> createUser(UserInfo userInfo, UserRequest userRequest) {
         Model model = new Model();
 
-        if (userRepository.findUserByEmail(user.getEmail()).isPresent()) {
-            model.setResult("User with email: + user.getEmail() +  already exist!");
+        if (userRepository.findUserByEmail(userRequest.getEmail()).isPresent()) {
+            model.setResult("User with email:"  + userRequest.getEmail() +  " already exist!");
             return ResponseEntity.ok(model.getResult());
         }
 
-        userRepository.save(user);
+        userRepository.save(
+                User.builder().email(userRequest.getEmail())
+                        .password(userRequest.getPassword())
+                        .userInfo(UserInfo.builder()
+                                .role(userInfo.getRole())
+                                .first_name(userInfo.getFirst_name())
+                                .last_name(userInfo.getLast_name())
+                                .phone_number(userInfo.getPhone_number())
+                                .build())
+                        .build());
         model.setResult("User successfully established");
         return ResponseEntity.ok(model.getResult());
     }
