@@ -1,73 +1,96 @@
 package com.example.shopp.service;
 
-import com.example.shopp.dto.ProductRequest;
-import com.example.shopp.entity.Category;
+import com.example.shopp.dto.info.ProductInfo;
+import com.example.shopp.dto.request.ProductRequest;
 import com.example.shopp.entity.Product;
-import com.example.shopp.entity.User;
 import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.ProductRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+    private int allQuantity = 0;
+    private double totalPrice = 0;
 
     public Product checkProductOnExistAndReturn(Long id) {
-        return productRepository.findAllById(id).orElseThrow(
+        return productRepository.findAllByProductId(id).orElseThrow(
                 () -> new NotFoundException("Product was not found!"));
     }
 
-    public Product parseToProduct(ProductRequest request) {
-        return Product.builder().productName(request.getProductName()).
-                productPrice(request.getProductPrice()).
-                description(request.getDescription()).build();
+    public Product parseToProduct(ProductInfo productInfo, ProductRequest productRequest) {
+        return Product.builder().productName(productInfo.getProductName()).
+                productPrice(productInfo.getProductPrice()).
+                description(productInfo.getDescription())
+                .quantity(productInfo.getQuantity())
+                .uniqueCode(productRequest.getUniqueCode())
+                .category(productInfo.getCategory())
+                .build();
     }
     public List<Product> findAllProducts() {
         return productRepository.findAll();
     }
 
-    public ResponseEntity<Object> createProduct(ProductRequest productRequest) {
+    public ResponseEntity<Object> createProduct(ProductInfo productInfo, ProductRequest productRequest) {
         Model model = new Model();
 
-        if (productRepository.findAllByProductName(productRequest.getProductName()).isPresent()) {
+        if (productRepository.findAllByProductName(productInfo.getProductName()).isPresent()) {
             model.setResult("Product already exist!");
             return ResponseEntity.ok(model.getResult());
         }
-        productRepository.save(parseToProduct(productRequest));
+        productRepository.save(parseToProduct(productInfo, productRequest));
         model.setResult("Product was created!");
-
+        allQuantity += productInfo.getQuantity();
+        totalPrice += productInfo.getProductPrice();
         return ResponseEntity.ok(model.getResult());
     }
 
-    public ProductRequest getProductById(Long id) {
+    public ProductInfo getProductById(Long id) {
         Product product = checkProductOnExistAndReturn(id);
-        return ProductRequest.builder().productName(product.getProductName())
+        return ProductInfo.builder().productName(product.getProductName())
                 .productPrice(product.getProductPrice())
-                .description(product.getDescription()).build();
+                .description(product.getDescription())
+                .quantity(product.getQuantity())
+                .category(product.getCategory())
+                .build();
     }
 
-    public ResponseEntity<Object> updateProductById(Long id, ProductRequest productRequest) {
+    public ResponseEntity<Object> updateProductById(Long id, ProductInfo productInfo) {
         Model model = new Model();
         Product product = checkProductOnExistAndReturn(id);
 
-        product.setProductName(productRequest.getProductName());
-        product.setProductPrice(productRequest.getProductPrice());
-        product.setDescription(productRequest.getDescription());
+        product.setProductName(productInfo.getProductName());
+        product.setProductPrice(productInfo.getProductPrice());
+        product.setDescription(productInfo.getDescription());
         product.setCategory(product.getCategory());
+        product.setQuantity(productInfo.getQuantity());
+
         productRepository.save(product);
         model.setResult("Product was updated!");
+
         return ResponseEntity.ok(model.getResult());
     }
 
     public ResponseEntity<Object> deleteProductById(Long id) {
         Model model = new Model();
+
         productRepository.deleteById(id);
         model.setResult("Product was deleted!");
+
         return ResponseEntity.ok(model.getResult());
+    }
+
+    public int getAllQuantity() {
+        return allQuantity;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
     }
 }

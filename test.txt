@@ -1,101 +1,170 @@
+Доступ к серверу: http://localhost:8080/api/v1
+
 5 endpoints for (USER):
+1. UserController
+    1) create USER {
+        POST /users/createUser
+        Параметры: email, password, role, firstName, lastName, phoneNumber
+        После запроса: Возращается объект с сообщением: User successfully established
+        Если юзер с таким же email уже существует: Сообщение: "User with email:"  + userRequest.getEmail() +  " already exist!"
+        200 OK
+    };
 
-1) create USER;
-2) update USER;
-3) return all USERS;
-4) delete USER By id;
-5) find USER by id
+    2) update USER INFO by id{
+       PUT /users/updateUserInfo/{id}
+       Параметры: role, firstName, lastName, phoneNumber
+       После запроса: Возвращается объект с сообщением: User info was updated
+       Если юзер не найден, выведется сообщение: "User was not found"
 
+       200 OK
+    };
 
-1) create USER
-   POST /api/v1/users/create_user
-   Return object in JSON format (result)
-   в параметрах(USER)
-   200 OK
-2) update USER by id
-   PUT /api/v1/users/id
-   Return object in JSON format (result)
-   в параметрах(id)
-   200 OK
-3) return all USERS
-   GET /api/v1/users/allUsers
-   return all USERS 
-   200 OK 
-4) delete USER by id
-   DELETE /api/v1/users/id
-   Return object in JSON format with MESSAGE("User name was updated!")
-   в параметрах(id)
-   200 OK
-5) find USER by id
-   GET /api/v1/users/id
-   Return object in JSON format with MESSAGE("User name was updated!")
-   в параметрах(id)
-   200 OK;
+    3) return all USERS {
+        GET /users/allUsers
+        Должен возвращать все юзеры админу, включая всю информацию о пользоватале
+        Пример ответа:
+        [
+            {
+                "userId": 1,
+                "email": "qweqweqw@mail.ru",
+                "password": "12sadas",
+                "userInfo": {
+                    "role": "ADMIN",
+                    "firstName": "aza",
+                    "lastName": "qqw",
+                    "phoneNumber": 121212
+                }
+            }
+        ]
+        200 OK
+    };
+
+    4) delete USER By id{
+        DELETE /users/{id}
+        Если юзер не найден, выведется сообщение: "User was not found"
+        Удаляет всю информацию из БД
+        После запроса: Возвращается объект с сообщением: User was deleted!
+    };
+    5) find USER by id {
+        GET /users/findUsersWith/{id};
+        Должен возращать информацию юзера с указанным id;
+        Пример ответа:
+        {
+            "role": "ADMIN",
+            "firstName": "aza",
+            "lastName": "qqw",
+            "phoneNumber": 121212
+        }
+        Если юзер не найден, выведется сообщение: "User was not found";
+        200 OK;
+    };
 ------------------------------------------------------------------------------------------------------------------------
 
 5 endpoints for (CATEGORY):
+2. CategoryController
+    1) create CATEGORY {
+        POST /categories/createCategory
+        Параметры: categoryName
+        После запроса: Возращается объект с сообщением: Category was created!
+////////1) В будущем добавлю проверку на существование категории(коллизия)//////////////////////////////////////////////
+    };
 
-1) create CATEGORY
-2) get all CATEGORY
-3) find CATEGORY by id
-4) update CATEGORY by id
-5) delete CATEGORY by id
+    2) get all CATEGORY {
+        GET /categories/allCategories
+        Должен возвращать все категории
+        Пример ответа:
+        [
+            {
+                "categoryId": 1,
+                "categoryName": "cars"
+/////////////////add JSON IGNORE FOR PRODUCTS///////////////////////////////////////////////////////////////////////////
+            }
+        ]
 
+        200 OK
+        };
+    3) find CATEGORY by id {
+        GET /categories{id}
+        Должен возвращать категорию с указанным id
+////////1) В будущем добавлю проверку на существование категории(коллизия)//////////////////////////////////////////////
 
-1) create CATEGORY
-   POST /api/v1/categories/createCategory
-   Return object in JSON format (result)
-   в параметрах(CATEGORY)
-   200 OK
-2) get all categories
-   GET /api/v1/categories/allCategory
-   Return all categories
-   200 OK
-3) find CATEGORY by id
-   GET /api/v1/categories/{id}
-   Return category with id
-   в параметрах(ID)
-   200 OK
-4) updatee category by id
-   PUT /api/v1/categories/{id}
-   Return object in JSON format with MESSAGE("Category name was updated!")
-   в параметрах(ID)
-   200 OK
-5) delete category by id
-   DELETE /api/v1/categories/{id}
-   RETURN object in JSON format with MESSAGE("Category was deleted!")
-   200 OK;
+        Пример ответа:
+        {
+            "categoryName": "cars"
+        }
+        200 OK
+    };
+
+    4) update CATEGORY by id {
+        PUT /categories/{id}
+        Обновляет категорию, возращается объект с сообщением: Category was updated!
+        200 OK
+    }
+    5) delete CATEGORY by id {
+        DELETE /categories/{id}
+        удаляет категорию с указанными id
+        Возращается объект с сообщением: Category was deleted!
+        200 OK
+    };
 ------------------------------------------------------------------------------------------------------------------------
-
 5 endpoints for (PRODUCT):
+3. ProductController:
+    1) create product {
+        POST /products/createProduct
+        Параметры: productName, productPrice, description, uniqueCode, quantity, category
+        После запроса: Возращается объект с сообщением: Product was created!
+        Если уже данный продукт существет, возвращается: Product already exist!
+        200 OK
+    };
 
-1) find all products
-2) create product
-3) find product by id
-4) update product by id
-5) delete product by id
+    2) find all products {
+        GET /products/allProducts
+        Должен возвращать фулл информацию о продукте
+        Пример:
+        [
+            {
+                "productId": 1,
+                "productName": "mers",
+                "productPrice": 12.2,
+                "description": "1997 year",
+                "uniqueCode": "111",
+                "quantity": 10,
+                "category": {
+                    "categoryId": 1,
+                    "categoryName": "cars",
+                    "products": []
+                },
+                "orderDetails": []
+            }
+        ]
+    };
 
+    3) find product by id {
+        GET /products/{id}
+        Возвращает продукт с указанным id
+        Пример ответа:
+        {
+            "productName": "mers",
+            "productPrice": 12.2,
+            "description": "1997 year",
+            "quantity": 1
+        }
+        200 OK
+    };
 
-1) find all products
-   GET /api/v1/products/allProducts
-   RETURN all products
-   200 OK
-2) create product
-   POST /api/v1/products/createProduct
-   RETURN object in JSON format with MESSAGE("Product was created!")
-   200 OK
-3) find product by id
-   GET /api/v1/products/{id}
-   RETURN product by id
-   200 OK
-4) update product by id
-   PUT /api/v1/products/{id}
-   Return object in JSON format with MESSAGE("Product was updated!")
-   200 OK
-5) delete product by id
-   DELETE /api/v1/products/{id}
-   Return object in JSON format with MESSAGE("Product was delete!")
-   200 OK;
+    4) update product by id {
+        PUT /products/updateProduct
+        Параметры: productName, productPrice, description, uniqueCode, quantity, category
+        После запроса: Возвращается объект с сообщением: Product was updated!
+        Если юзер не найден, выведется сообщение: "Product was not found"
+        200 OK
+       }
+    5) delete product by id {
+        DELETE /products/{id}
+        Удаляте продукт с указанным id
+        Возращается объект с сообщением: Product was deleted!
+        200 OK
+    }
 -------------------------------------------------------------------------------------------------------------------------
 
 

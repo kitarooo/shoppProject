@@ -1,9 +1,10 @@
 package com.example.shopp.entity;
 
-import com.example.shopp.dto.UserInfo;
+import com.example.shopp.dto.info.UserInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jdk.jfr.Name;
 import lombok.*;
 
 import java.util.List;
@@ -19,14 +20,18 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Name("user_id")
+    private Long userId;
+
     @Email
     @Column
     private String email;
+
     @Column(unique = true)
     private String password;
     @Embedded
     private UserInfo userInfo;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Order> orders;

@@ -2,6 +2,7 @@ package com.example.shopp.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jdk.jfr.Name;
 import lombok.*;
 
 import java.util.List;
@@ -19,16 +20,26 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private Long id;
+    @Name("product_id")
+    private Long productId;
+
     @NotNull
     @Column(unique = true, nullable = false, name = "product_name")
     private String productName;
+
     @NotNull
     @Column(nullable = false, name = "product_price")
     private Double productPrice;
+
     @NotNull
     @Column(nullable = false)
     private String description;
+
+    @Column(unique = true)
+    private String uniqueCode;
+
+    @Column
+    private int quantity;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;

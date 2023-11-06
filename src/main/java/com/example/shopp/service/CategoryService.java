@@ -1,6 +1,6 @@
 package com.example.shopp.service;
 
-import com.example.shopp.dto.CategoryRequest;
+import com.example.shopp.dto.info.CategoryInfo;
 import com.example.shopp.entity.Category;
 import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.CategoryRepository;
@@ -16,11 +16,11 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     public Category checkCategoryOnExistAndReturn(Long id) {
-        return categoryRepository.findAllById(id).orElseThrow(
+        return categoryRepository.findAllByCategoryId(id).orElseThrow(
                 () -> new NotFoundException("Category was not found!"));
     }
 
-    public Category parseToCategory(CategoryRequest categoryRequest) {
+    public Category parseToCategory(CategoryInfo categoryRequest) {
         return Category.builder().categoryName(categoryRequest.getCategoryName()).build();
     }
 
@@ -28,7 +28,7 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public ResponseEntity<Object> createCategory(CategoryRequest categoryRequest) {
+    public ResponseEntity<Object> createCategory(CategoryInfo categoryRequest) {
         Model model = new Model();
         if (categoryRepository.findAllByCategoryName(categoryRequest.getCategoryName()).isPresent()) {
             model.setResult("Category already exist!");
@@ -40,12 +40,12 @@ public class CategoryService {
         return ResponseEntity.ok(model.getResult());
     }
 
-    public CategoryRequest getCategoryById(Long id) {
+    public CategoryInfo getCategoryById(Long id) {
         Category category = checkCategoryOnExistAndReturn(id);
-        return CategoryRequest.builder().categoryName(category.getCategoryName()).build();
+        return CategoryInfo.builder().categoryName(category.getCategoryName()).build();
     }
 
-    public ResponseEntity<Object> updateCategoryById(Long id, CategoryRequest categoryRequest) {
+    public ResponseEntity<Object> updateCategoryById(Long id, CategoryInfo categoryRequest) {
         Category category = checkCategoryOnExistAndReturn(id);
         Model model = new Model();
         category.setCategoryName(categoryRequest.getCategoryName());

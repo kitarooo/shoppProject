@@ -1,6 +1,6 @@
 package com.example.shopp.controller;
 
-import com.example.shopp.dto.CategoryRequest;
+import com.example.shopp.dto.info.CategoryInfo;
 import com.example.shopp.entity.Category;
 import com.example.shopp.service.CategoryService;
 import lombok.AllArgsConstructor;
@@ -21,17 +21,17 @@ public class CategoryController {
     }
 
     @PostMapping("/createCategory")
-    public ResponseEntity<Object> createCategory(CategoryRequest categoryRequest) {
+    public ResponseEntity<Object> createCategory(CategoryInfo categoryRequest) {
         return categoryService.createCategory(categoryRequest);
     }
 
     @GetMapping("{id}")
-    public CategoryRequest getCategoryById(@PathVariable Long id) {
+    public CategoryInfo getCategoryById(@PathVariable Long id) {
         return categoryService.getCategoryById(id);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Object> updateCategoryById(@PathVariable Long id, CategoryRequest categoryRequest) {
+    public ResponseEntity<Object> updateCategoryById(@PathVariable Long id, CategoryInfo categoryRequest) {
         return categoryService.updateCategoryById(id, categoryRequest);
     }
 

@@ -1,7 +1,7 @@
 package com.example.shopp.service;
 
-import com.example.shopp.dto.UserInfo;
-import com.example.shopp.dto.UserRequest;
+import com.example.shopp.dto.info.UserInfo;
+import com.example.shopp.dto.request.UserRequest;
 import com.example.shopp.entity.User;
 import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.UserRepository;
@@ -20,11 +20,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User checkUserOnExistAndReturn(Long id) {
-        return userRepository.findAllById(id).orElseThrow( () -> new NotFoundException("User was not found"));
+    public User checkUserOnExistAndReturn(Long userId) {
+        return userRepository.findAllByUserId(userId).orElseThrow( () -> new NotFoundException("User was not found"));
     }
 
-    public ResponseEntity<Object> createUser(UserInfo userInfo, UserRequest userRequest) {
+    public ResponseEntity<Object> createUser(UserInfo userInfo , UserRequest userRequest) {
         Model model = new Model();
 
         if (userRepository.findUserByEmail(userRequest.getEmail()).isPresent()) {
@@ -37,9 +37,9 @@ public class UserService {
                         .password(userRequest.getPassword())
                         .userInfo(UserInfo.builder()
                                 .role(userInfo.getRole())
-                                .first_name(userInfo.getFirst_name())
-                                .last_name(userInfo.getLast_name())
-                                .phone_number(userInfo.getPhone_number())
+                                .firstName(userInfo.getFirstName())
+                                .lastName(userInfo.getLastName())
+                                .phoneNumber(userInfo.getPhoneNumber())
                                 .build())
                         .build());
         model.setResult("User successfully established");

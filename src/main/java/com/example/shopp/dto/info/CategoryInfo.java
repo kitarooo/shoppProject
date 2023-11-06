@@ -1,6 +1,5 @@
-package com.example.shopp.dto;
+package com.example.shopp.dto.info;
 
-import jakarta.persistence.Embeddable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +7,6 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class CategoryRequest {
+public class CategoryInfo {
     private String categoryName;
 }

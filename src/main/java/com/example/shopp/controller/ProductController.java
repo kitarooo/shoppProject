@@ -1,6 +1,7 @@
 package com.example.shopp.controller;
 
-import com.example.shopp.dto.ProductRequest;
+import com.example.shopp.dto.info.ProductInfo;
+import com.example.shopp.dto.request.ProductRequest;
 import com.example.shopp.entity.Product;
 import com.example.shopp.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -21,17 +22,17 @@ public class ProductController {
     }
 
     @PostMapping("/createProduct")
-    public ResponseEntity<Object> createProduct(ProductRequest productRequest) {
-        return productService.createProduct(productRequest);
+    public ResponseEntity<Object> createProduct(ProductInfo productInfo, ProductRequest productRequest) {
+        return productService.createProduct(productInfo, productRequest);
     }
 
     @GetMapping("{id}")
-    public ProductRequest findProductById(@PathVariable Long id) {
+    public ProductInfo findProductById(@PathVariable Long id) {
         return productService.getProductById(id);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Object> updateProductById(@PathVariable Long id, ProductRequest productRequest) {
+    public ResponseEntity<Object> updateProductById(@PathVariable Long id, ProductInfo productRequest) {
         return productService.updateProductById(id, productRequest);
     }
 

@@ -1,7 +1,7 @@
 package com.example.shopp.controller;
 
-import com.example.shopp.dto.UserInfo;
-import com.example.shopp.dto.UserRequest;
+import com.example.shopp.dto.info.UserInfo;
+import com.example.shopp.dto.request.UserRequest;
 import com.example.shopp.entity.User;
 import com.example.shopp.service.UserService;
 import lombok.AllArgsConstructor;

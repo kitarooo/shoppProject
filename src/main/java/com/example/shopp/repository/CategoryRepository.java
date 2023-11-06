@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     Optional<Category> findAllByCategoryName(String categoryName);
     void deleteCategoryByCategoryName(String categoryName);
-    Optional<Category> findCategoryById(Long id);
-    Optional<Category> findAllById(Long id);
+    Optional<Category> findCategoryByCategoryId(Long categoryId);
+    Optional<Category> findAllByCategoryId(Long categoryId);
     //@Query(add script)
 }
