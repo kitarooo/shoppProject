@@ -21,3 +21,19 @@ totalQuantity=
 
 
 
+1) переменные
+
+1) total price (service)
+2) delete column
+3) delete order
+
+
+
+
+
+
+
+
+
+
+

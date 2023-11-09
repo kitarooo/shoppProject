@@ -22,8 +22,8 @@ public class ProductController {
     }
 
     @PostMapping("/createProduct")
-    public ResponseEntity<Object> createProduct(ProductInfo productInfo, ProductRequest productRequest) {
-        return productService.createProduct(productInfo, productRequest);
+    public ResponseEntity<Object> createProduct(ProductInfo productInfo) {
+        return productService.createProduct(productInfo);
     }
 
     @GetMapping("{id}")

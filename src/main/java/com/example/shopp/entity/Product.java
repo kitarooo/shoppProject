@@ -35,9 +35,6 @@ public class Product {
     @Column(nullable = false)
     private String description;
 
-    @Column(unique = true)
-    private String uniqueCode;
-
     @Column
     private int quantity;
 

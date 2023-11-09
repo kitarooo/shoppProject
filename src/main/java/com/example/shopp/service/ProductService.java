@@ -17,19 +17,17 @@ public class ProductService {
         this.productRepository = productRepository;
     }
     private int allQuantity = 0;
-    private double totalPrice = 0;
 
     public Product checkProductOnExistAndReturn(Long id) {
         return productRepository.findAllByProductId(id).orElseThrow(
                 () -> new NotFoundException("Product was not found!"));
     }
 
-    public Product parseToProduct(ProductInfo productInfo, ProductRequest productRequest) {
+    public Product parseToProduct(ProductInfo productInfo) {
         return Product.builder().productName(productInfo.getProductName()).
                 productPrice(productInfo.getProductPrice()).
                 description(productInfo.getDescription())
                 .quantity(productInfo.getQuantity())
-                .uniqueCode(productRequest.getUniqueCode())
                 .category(productInfo.getCategory())
                 .build();
     }
@@ -37,17 +35,16 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public ResponseEntity<Object> createProduct(ProductInfo productInfo, ProductRequest productRequest) {
+    public ResponseEntity<Object> createProduct(ProductInfo productInfo) {
         Model model = new Model();
 
         if (productRepository.findAllByProductName(productInfo.getProductName()).isPresent()) {
             model.setResult("Product already exist!");
             return ResponseEntity.ok(model.getResult());
         }
-        productRepository.save(parseToProduct(productInfo, productRequest));
+        productRepository.save(parseToProduct(productInfo));
         model.setResult("Product was created!");
         allQuantity += productInfo.getQuantity();
-        totalPrice += productInfo.getProductPrice();
         return ResponseEntity.ok(model.getResult());
     }
 
@@ -88,9 +85,5 @@ public class ProductService {
 
     public int getAllQuantity() {
         return allQuantity;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
     }
 }
