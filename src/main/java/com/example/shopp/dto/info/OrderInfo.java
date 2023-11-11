@@ -11,6 +11,7 @@ import lombok.*;
 @Getter
 @Setter
 public class OrderInfo {
+    private Long userId;
     private MethodOfPurchases methodOfPurchases;
     private String address;
     private double totalPrice;
