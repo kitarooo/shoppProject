@@ -10,6 +10,6 @@ public class MainController {
 
     @GetMapping("/main")
     public String mainC(){
-        return "/api/v2/main";
+        return "/main";
     }
 }

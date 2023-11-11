@@ -1,20 +1,24 @@
 package com.example.shopp.service;
 
+import com.example.shopp.dto.Enums.Role;
 import com.example.shopp.dto.info.UserInfo;
 import com.example.shopp.dto.request.UserRequest;
 import com.example.shopp.entity.User;
 import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -24,6 +28,32 @@ public class UserService {
         return userRepository.findAllByUserId(userId).orElseThrow( () -> new NotFoundException("User was not found"));
     }
 
+
+    //ADMIN
+    public ResponseEntity<Object> createUserAdmin(UserInfo userInfo, UserRequest userRequest) {
+        Model model = new Model();
+
+        if (userRepository.findUserByEmail(userRequest.getEmail()).isPresent()) {
+            model.setResult("User with email:" + userRequest.getEmail() + " already exist!");
+            return ResponseEntity.ok(model.getResult());
+        }
+
+        userRepository.save(
+                User.builder().email(userRequest.getEmail())
+                        .password(userRequest.getPassword())
+                        .userInfo(UserInfo.builder()
+                                .role(Role.ADMIN)
+                                .firstName(userInfo.getFirstName())
+                                .lastName(userInfo.getLastName())
+                                .phoneNumber(userInfo.getPhoneNumber())
+                                .build())
+                        .build());
+        model.setResult("User successfully established");
+        return ResponseEntity.ok(model.getResult());
+    }
+
+
+    //USER
     public ResponseEntity<Object> createUser(UserInfo userInfo , UserRequest userRequest) {
         Model model = new Model();
 
@@ -36,7 +66,7 @@ public class UserService {
                 User.builder().email(userRequest.getEmail())
                         .password(userRequest.getPassword())
                         .userInfo(UserInfo.builder()
-                                .role(userInfo.getRole())
+                                .role(Role.USER)
                                 .firstName(userInfo.getFirstName())
                                 .lastName(userInfo.getLastName())
                                 .phoneNumber(userInfo.getPhoneNumber())
