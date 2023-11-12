@@ -34,6 +34,19 @@ totalQuantity=
 в будущем добавить продукты в наличии
 
 
+решить проблему подключения с thymeleaf
+add authentication, registration
+add role
+
+
+
+
+
+
+
+
+через дто регаться
+
 
 
 

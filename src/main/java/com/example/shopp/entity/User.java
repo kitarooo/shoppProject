@@ -1,5 +1,6 @@
 package com.example.shopp.entity;
 
+import com.example.shopp.dto.Enums.Role;
 import com.example.shopp.dto.info.UserInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
