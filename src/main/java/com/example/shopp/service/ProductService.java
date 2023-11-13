@@ -1,7 +1,6 @@
 package com.example.shopp.service;
 
 import com.example.shopp.dto.info.ProductInfo;
-import com.example.shopp.dto.request.ProductRequest;
 import com.example.shopp.entity.Product;
 import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.ProductRepository;

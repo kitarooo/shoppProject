@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -16,9 +16,11 @@ import java.util.Collections;
 @Component
 public class AuthProviderImpl implements AuthenticationProvider {
     private final UserDetailsService detailsService;
+   // private final PasswordEncoder encoder;
     @Autowired
     public AuthProviderImpl(UserDetailsService detailsService) {
         this.detailsService = detailsService;
+        //this.encoder = encoder;
     }
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -26,8 +28,13 @@ public class AuthProviderImpl implements AuthenticationProvider {
 
         UserDetails userDetails = detailsService.loadUserByUsername(email);
 
+        //String password = encoder.encode(authentication.getCredentials().toString());
         String password = authentication.getCredentials().toString();
+        /*String presentedPassword = authentication.getCredentials().toString();
 
+        if (!encoder.matches(presentedPassword, userDetails.getPassword())) {
+            throw new BadCredentialsException("Bad password");
+        }*/
         if (!password.equals(userDetails.getPassword())) {
             throw new BadCredentialsException("Incorrect password!");
         }

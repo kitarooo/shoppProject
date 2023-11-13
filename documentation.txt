@@ -34,9 +34,11 @@ totalQuantity=
 в будущем добавить продукты в наличии
 
 
-решить проблему подключения с thymeleaf
-add authentication, registration
-add role
+решить проблему подключения с thymeleaf - выполнено
+add authentication, registration - выполнено
+add role - не выполлнено
+решить еще: проблемы с шифрованием с аутенфикацией
+добавить допуски к ендпоинтам через роли
 
 
 
@@ -45,7 +47,6 @@ add role
 
 
 
-через дто регаться
 
 
 

@@ -6,8 +6,6 @@ import com.example.shopp.dto.info.OrderInfo;
 import com.example.shopp.entity.Order;
 import com.example.shopp.entity.OrderDetails;
 import com.example.shopp.entity.Product;
-import com.example.shopp.entity.User;
-import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

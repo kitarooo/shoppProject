@@ -5,7 +5,6 @@ import com.example.shopp.dto.request.UserRequest;
 import com.example.shopp.entity.User;
 import com.example.shopp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

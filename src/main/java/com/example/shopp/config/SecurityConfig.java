@@ -24,11 +24,15 @@ public class SecurityConfig extends WebSecurityConfiguration {
         this.authProvider = authProvider;
     }
 
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     //authentication
-    /*@Bean
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authProvider);
-    }*/
+    }
 
     @Bean
     public SecurityFilterChain SecurityFilterChain(HttpSecurity http) throws Exception {
@@ -47,11 +51,4 @@ public class SecurityConfig extends WebSecurityConfiguration {
                                 .logoutSuccessUrl("/auth/login"))
                 .build();
     }
-
-    @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-
 }
