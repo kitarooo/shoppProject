@@ -1,6 +1,6 @@
 package com.example.shopp.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,32 +14,24 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 
 @Component
+@RequiredArgsConstructor
 public class AuthProviderImpl implements AuthenticationProvider {
     private final UserDetailsService detailsService;
-   // private final PasswordEncoder encoder;
-    @Autowired
-    public AuthProviderImpl(UserDetailsService detailsService) {
-        this.detailsService = detailsService;
-        //this.encoder = encoder;
-    }
+    private final PasswordEncoder passwordEncoder;
+
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
 
-        UserDetails userDetails = detailsService.loadUserByUsername(email);
+        UserDetails personDetails = detailsService.loadUserByUsername(email);
 
-        //String password = encoder.encode(authentication.getCredentials().toString());
-        String password = authentication.getCredentials().toString();
-        /*String presentedPassword = authentication.getCredentials().toString();
+        String password = passwordEncoder.encode(authentication.getCredentials().toString());
 
-        if (!encoder.matches(presentedPassword, userDetails.getPassword())) {
-            throw new BadCredentialsException("Bad password");
-        }*/
-        if (!password.equals(userDetails.getPassword())) {
-            throw new BadCredentialsException("Incorrect password!");
+        if (!password.equals(personDetails.getPassword())) {
+            throw new BadCredentialsException("Incorrect password");
         }
-
-        return new UsernamePasswordAuthenticationToken(userDetails,password, Collections.emptyList());
+        return new UsernamePasswordAuthenticationToken(personDetails, password, Collections.emptyList());
     }
 
     @Override

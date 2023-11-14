@@ -1,5 +1,6 @@
 package com.example.shopp.dto.request;
 
+import com.example.shopp.dto.Enums.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,4 +11,5 @@ import lombok.Setter;
 public class UserRequest {
     private String password;
     private String email;
+    //private Role role;
 }

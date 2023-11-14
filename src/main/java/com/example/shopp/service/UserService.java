@@ -38,13 +38,14 @@ public class UserService {
         }
 
         userRepository.save(
-                User.builder().email(userRequest.getEmail())
+                User.builder()
+                        .email(userRequest.getEmail())
                         .password(userRequest.getPassword())
                         .userInfo(UserInfo.builder()
-                                .role(Role.ADMIN)
                                 .firstName(userInfo.getFirstName())
                                 .lastName(userInfo.getLastName())
                                 .phoneNumber(userInfo.getPhoneNumber())
+                                .role(Role.ROLE_ADMIN)
                                 .build())
                         .build());
         model.setResult("User successfully established");
@@ -62,13 +63,14 @@ public class UserService {
         }
 
         userRepository.save(
-                User.builder().email(userRequest.getEmail())
+                User.builder()
+                        .email(userRequest.getEmail())
                         .password(userRequest.getPassword())
                         .userInfo(UserInfo.builder()
-                                .role(Role.USER)
                                 .firstName(userInfo.getFirstName())
                                 .lastName(userInfo.getLastName())
                                 .phoneNumber(userInfo.getPhoneNumber())
+                                .role(Role.ROLE_USER)
                                 .build())
                         .build());
         model.setResult("User successfully established");
