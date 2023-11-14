@@ -11,5 +11,4 @@ import lombok.Setter;
 public class UserRequest {
     private String password;
     private String email;
-    //private Role role;
 }

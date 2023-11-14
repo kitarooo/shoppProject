@@ -13,7 +13,16 @@
   <label for="password">Введите пароль</label>
   <input type="password" th:field="*{password}" id="password"/>
   <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error!</div>
+  <!--<br/>
+  <label for="firstname">Введите ваше имя: </label>
+  <input type="text" th:field="*{firstName}" id="firstname"/>
   <br/>
+  <label for="lastname">Введите фамилию: </label>
+  <input type="text" th:field="*{lastName}" id="lastname">
+  <br/>
+  <label for="phonenumber">Введите номер телефона: </label>
+  <input type="number" th:field="*{phoneNumber}" id="phonenumber">
+  <br/>-->
   <input type="submit" value="Sign up">
 </form>
 

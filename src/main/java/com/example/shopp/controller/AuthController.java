@@ -1,5 +1,7 @@
 package com.example.shopp.controller;
 
+import com.example.shopp.dto.UserDTO;
+import com.example.shopp.dto.info.UserInfo;
 import com.example.shopp.dto.request.UserRequest;
 import com.example.shopp.entity.User;
 import com.example.shopp.repository.UserRepository;
@@ -29,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public String performRegistration(@ModelAttribute("userRequest") UserRequest user) {
+    public String performRegistration(@ModelAttribute("userDTO") UserRequest user) {
         if (userRepository.findUserByEmail(user.getEmail()).isPresent()) {
             return "registration";
         }

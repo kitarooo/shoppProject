@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfiguration{
                                 .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin.loginPage("/auth/login")
                         .loginProcessingUrl("/process_login")
-                        .defaultSuccessUrl("/main", true)
+                        .defaultSuccessUrl("/api/v2/main", true)
                         .failureUrl("/auth/login?error")
                 )
                 .logout(logout ->
