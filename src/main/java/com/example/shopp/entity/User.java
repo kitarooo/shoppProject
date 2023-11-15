@@ -35,6 +35,9 @@ public class User {
     @Embedded
     private UserInfo userInfo;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Order> orders;

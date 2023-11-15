@@ -13,5 +13,5 @@ public class UserInfo {
     private String firstName;
     private String lastName;
     private int phoneNumber;
-    private Role role;
+    //private Role role;
 }
