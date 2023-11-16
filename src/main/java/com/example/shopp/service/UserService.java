@@ -46,7 +46,7 @@ public class UserService {
                                 .lastName(userInfo.getLastName())
                                 .phoneNumber(userInfo.getPhoneNumber())
                                 .build())
-                        .role(Role.ROLE_ADMIN)
+                        .role(Role.ADMIN)
                         .build());
         model.setResult("User successfully established");
         return ResponseEntity.ok(model.getResult());
@@ -71,7 +71,7 @@ public class UserService {
                                 .lastName(userInfo.getLastName())
                                 .phoneNumber(userInfo.getPhoneNumber())
                                 .build())
-                        .role(Role.ROLE_USER)
+                        .role(Role.USER)
                         .build());
         model.setResult("User successfully established");
         return ResponseEntity.ok(model.getResult());

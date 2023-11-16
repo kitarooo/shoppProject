@@ -1,3 +1,23 @@
+Регистрация:
+ http://localhost:8080/auth/registration
+ поля: email and password
+ (роль автоматически USER)
+ Аутенфикация:
+ http://localhost:8080/auth/login
+ поля: email and password
+ Выход из системы:
+ Logout в main адресе:
+ http://localhost:8080//api/v2/main
+
+
+
+
+
+
+
+
+
+                                            Endpoints:
 Доступ к серверу: http://localhost:8080/api/v1
 
 5 endpoints for (USER):

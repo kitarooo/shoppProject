@@ -31,7 +31,7 @@ public class RegistrationService {
         return User.builder()
                 .email(user.getEmail())
                 .password(user.getPassword())
-                .role(Role.ROLE_USER)
+                .role(Role.ADMIN)
                 .build();
     }
 }
