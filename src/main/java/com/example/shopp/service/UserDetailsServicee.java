@@ -4,6 +4,7 @@ import com.example.shopp.entity.User;
 import com.example.shopp.repository.UserRepository;
 import com.example.shopp.security.UserDetailss;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

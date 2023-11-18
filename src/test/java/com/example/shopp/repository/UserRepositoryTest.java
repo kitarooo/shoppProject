@@ -8,6 +8,7 @@ class UserRepositoryTest {
 
     @Test
     void itFindAllByUserId() {
+
     }
 
     @Test

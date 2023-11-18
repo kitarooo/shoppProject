@@ -1,7 +1,6 @@
 package com.example.shopp.controller;
 
 import com.example.shopp.dto.info.ProductInfo;
-import com.example.shopp.dto.request.ProductRequest;
 import com.example.shopp.entity.Product;
 import com.example.shopp.service.ProductService;
 import lombok.AllArgsConstructor;

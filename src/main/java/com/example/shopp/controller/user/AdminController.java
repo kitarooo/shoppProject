@@ -6,12 +6,13 @@ import com.example.shopp.entity.User;
 import com.example.shopp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v2/admin")
+@RequestMapping("/api/v1/admin")
 public class AdminController {
     private final UserService service;
     @Autowired
@@ -21,11 +22,13 @@ public class AdminController {
 
 
     @GetMapping("/allUsers")
+//    @PreAuthorize("hasRole('ADMIN')")
     public List<User> getAll() {
         return service.findAll();
     }
 
     @PostMapping("/createUserAdmin")
+ //   @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Object> addUser(UserRequest userRequest, UserInfo userInfo) {
         return service.createUserAdmin(userInfo, userRequest);
     }

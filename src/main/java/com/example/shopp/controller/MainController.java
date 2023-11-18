@@ -1,4 +1,4 @@
-package com.example.shopp.controller;
+/*package com.example.shopp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,4 +13,4 @@ public class MainController {
     public String mainC(){
         return "main";
     }
-}
+}*/
