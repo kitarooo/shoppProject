@@ -20,21 +20,21 @@ public class CategoryService {
                 () -> new NotFoundException("Category was not found!"));
     }
 
-    public Category parseToCategory(CategoryInfo categoryInfo) {
+   /* public Category parseToCategory(CategoryInfo categoryInfo) {
         return Category.builder().categoryName(categoryInfo.getCategoryName()).build();
-    }
+    }*/
 
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
-    public ResponseEntity<Object> createCategory(CategoryInfo categoryInfo) {
+    public ResponseEntity<Object> createCategory(Category category) {
         Model model = new Model();
-        if (categoryRepository.findAllByCategoryName(categoryInfo.getCategoryName()).isPresent()) {
+        if (categoryRepository.findAllByCategoryName(category.getCategoryName()).isPresent()) {
             model.setResult("Category already exist!");
             return ResponseEntity.ok(model.getResult());
         }
-        categoryRepository.save(parseToCategory(categoryInfo));
+        categoryRepository.save(category);
         model.setResult("Category was created!");
 
         return ResponseEntity.ok(model.getResult());

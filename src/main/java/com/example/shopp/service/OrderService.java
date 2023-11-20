@@ -21,7 +21,8 @@ import java.util.Optional;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductService productService;
-    private final UserService userService;
+    //private final UserService userService;
+    private final UserService userServiceDemo;
 
     public List<OrderInfo> allOrders() {
         return mapOrderToOrderINFO(orderRepository.findAll());
@@ -41,7 +42,7 @@ public class OrderService {
                 .totalPrice(totalSum)
                 .address(orderDTO.getAddress())
                 .methodOfPurchases(orderDTO.getMethodOfPurchases())
-                .user(userService.checkUserOnExistAndReturn(orderDTO.getUserId()))
+                .user(userServiceDemo.checkUserOnExistAndReturn(orderDTO.getUserId()))
                 .build();
 
         orderRepository.save(order);

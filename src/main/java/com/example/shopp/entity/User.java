@@ -1,7 +1,6 @@
 package com.example.shopp.entity;
 
 import com.example.shopp.dto.Enums.Role;
-import com.example.shopp.dto.info.UserInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -28,14 +27,18 @@ public class User implements UserDetails {
     private Long userId;
 
     @Email
-    @Column
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(unique = true)
+    @Column(nullable = false)
     private String password;
 
-    @Embedded
-    private UserInfo userInfo;
+    private String firstName;
+    private String lastName;
+    private Integer phoneNumber;
+
+    /*@Embedded
+    private UserInfo userInfo;*/
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -45,31 +48,37 @@ public class User implements UserDetails {
     List<Order> orders;
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return email;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

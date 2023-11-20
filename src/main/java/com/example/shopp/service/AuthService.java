@@ -26,7 +26,10 @@ public class AuthService {
         var user = User.builder()
                 .email(request.getEmail())
                 .password(encoder.encode(request.getPassword()))
-                .role(Role.ROLE_USER)
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .phoneNumber(request.getPhoneNumber())
+                .role(Role.ADMIN)
                 .build();
 
         userRepository.save(user);

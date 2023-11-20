@@ -11,8 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public enum Role implements GrantedAuthority {
 
-    ROLE_ADMIN("ADMIN"),
-    ROLE_USER("USER");
+    ADMIN("ADMIN"),
+    USER("USER");
 
     final String name;
 

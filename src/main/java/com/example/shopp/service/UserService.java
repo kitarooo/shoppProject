@@ -1,23 +1,21 @@
 package com.example.shopp.service;
 
 import com.example.shopp.dto.Enums.Role;
-import com.example.shopp.dto.info.UserInfo;
-import com.example.shopp.dto.request.UserRequest;
+import com.example.shopp.dto.UserDTO;
 import com.example.shopp.entity.User;
 import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -27,78 +25,76 @@ public class UserService {
         return userRepository.findAllByUserId(userId).orElseThrow( () -> new NotFoundException("User was not found"));
     }
 
-
-    //ADMIN
-    public ResponseEntity<Object> createUserAdmin(UserInfo userInfo, UserRequest userRequest) {
+    public ResponseEntity<Object> createUser(UserDTO userDTO) {
         Model model = new Model();
 
-        if (userRepository.findUserByEmail(userRequest.getEmail()).isPresent()) {
-            model.setResult("User with email:" + userRequest.getEmail() + " already exist!");
+        if (userRepository.findUserByEmail(userDTO.getEmail()).isPresent()) {
+            model.setResult("User with email:"  + userDTO.getEmail() +  " already exist!");
             return ResponseEntity.ok(model.getResult());
         }
 
-        userRepository.save(
-                User.builder()
-                        .email(userRequest.getEmail())
-                        .password(userRequest.getPassword())
-                        .userInfo(UserInfo.builder()
-                                .firstName(userInfo.getFirstName())
-                                .lastName(userInfo.getLastName())
-                                .phoneNumber(userInfo.getPhoneNumber())
-                                .build())
-                        .role(Role.ROLE_ADMIN)
-                        .build());
+        userRepository.save(User.builder()
+                .email(userDTO.getEmail())
+                .password(userDTO.getPassword())
+                .firstName(userDTO.getFirstName())
+                .lastName(userDTO.getLastName())
+                .phoneNumber(userDTO.getPhoneNumber())
+                .role(Role.USER)
+                .build());
         model.setResult("User successfully established");
         return ResponseEntity.ok(model.getResult());
     }
 
-
-    //USER
-    public ResponseEntity<Object> createUser(UserInfo userInfo , UserRequest userRequest) {
+    public ResponseEntity<Object> createUserAdmin(UserDTO userDTO) {
         Model model = new Model();
 
-        if (userRepository.findUserByEmail(userRequest.getEmail()).isPresent()) {
-            model.setResult("User with email:"  + userRequest.getEmail() +  " already exist!");
+        if (userRepository.findUserByEmail(userDTO.getEmail()).isPresent()) {
+            model.setResult("User with email:"  + userDTO.getEmail() +  " already exist!");
             return ResponseEntity.ok(model.getResult());
         }
 
-        userRepository.save(
-                User.builder()
-                        .email(userRequest.getEmail())
-                        .password(userRequest.getPassword())
-                        .userInfo(UserInfo.builder()
-                                .firstName(userInfo.getFirstName())
-                                .lastName(userInfo.getLastName())
-                                .phoneNumber(userInfo.getPhoneNumber())
-                                .build())
-                        .role(Role.ROLE_USER)
-                        .build());
+        userRepository.save(User.builder()
+                .email(userDTO.getEmail())
+                .password(userDTO.getPassword())
+                .firstName(userDTO.getFirstName())
+                .lastName(userDTO.getLastName())
+                .phoneNumber(userDTO.getPhoneNumber())
+                .role(Role.ADMIN)
+                .build());
         model.setResult("User successfully established");
         return ResponseEntity.ok(model.getResult());
     }
 
-    public UserInfo getUserById(Long id) {
+    public UserDTO getUserById(Long id) {
         //add if, exception
-       User user = checkUserOnExistAndReturn(id);
-       return user.getUserInfo();
+        User user = checkUserOnExistAndReturn(id);
+        return UserDTO.builder()
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .phoneNumber(user.getPhoneNumber())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .phoneNumber(user.getPhoneNumber())
+                .build();
     }
 
-    public ResponseEntity<Object> updateUserInfoById(Long id, UserInfo userInfo) {
+    public ResponseEntity<Object> updateUserInfoById(Long id, UserDTO userDTO) {
         User user = checkUserOnExistAndReturn(id);
         Model model = new Model();
-
-        user.setUserInfo(userInfo);
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
         userRepository.save(user);
         model.setResult("User info was updated");
 
         return ResponseEntity.ok(model.getResult());
     }
 
-    public ResponseEntity<Object> updateUserRequest(UserRequest userRequest, Long id) {
+    public ResponseEntity<Object> updateUserRequest(Long id, UserDTO userDTO) {
         User user = checkUserOnExistAndReturn(id);
         Model model = new Model();
-
-        user.setPassword(userRequest.getPassword());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
         userRepository.save(user);
         model.setResult("User password was updated!");
 

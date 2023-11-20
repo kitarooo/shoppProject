@@ -41,6 +41,9 @@ public class SecurityConfig extends WebSecurityConfiguration {
     private final String[] test = {
             "/api/v2/**",
             "/api/v1/admin/**",
+            "/swagger*/**",
+            "/swagger-ui/**",
+            "/shopp/swagger-ui.html"
     };
 
     @Bean
@@ -48,10 +51,10 @@ public class SecurityConfig extends WebSecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-
-                        /*.requestMatchers(ADMIN_COMMON).hasRole("ADMIN")
-                        .requestMatchers(USER_COMMON).hasRole("USER")*/
-                        .requestMatchers(test)
+                        .requestMatchers(ADMIN_COMMON).permitAll()
+                        .requestMatchers(USER_COMMON).permitAll()
+                        .requestMatchers(test).permitAll()
+                        .requestMatchers(PERMIT_ALL)
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
