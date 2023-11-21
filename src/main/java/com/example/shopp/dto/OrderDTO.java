@@ -1,7 +1,6 @@
 package com.example.shopp.dto;
 
-import com.example.shopp.dto.Enums.MethodOfPurchases;
-import com.example.shopp.entity.User;
+import com.example.shopp.Enums.MethodOfPurchases;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

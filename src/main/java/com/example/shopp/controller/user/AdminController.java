@@ -21,9 +21,10 @@ public class AdminController {
     private final UserService userService;
 
     @GetMapping("/allUsers")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "for get all users", description = "For get list users for ADMIN")
     public List<User> getAll() {
+        System.out.println();
         return userService.findAll();
     }
 

@@ -1,6 +1,6 @@
 package com.example.shopp.entity;
 
-import com.example.shopp.dto.Enums.MethodOfPurchases;
+import com.example.shopp.Enums.MethodOfPurchases;
 import jakarta.persistence.*;
 import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data

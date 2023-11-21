@@ -1,4 +1,4 @@
-package com.example.shopp.util;
+package com.example.shopp.security.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;

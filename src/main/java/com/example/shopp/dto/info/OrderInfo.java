@@ -1,6 +1,6 @@
 package com.example.shopp.dto.info;
 
-import com.example.shopp.dto.Enums.MethodOfPurchases;
+import com.example.shopp.Enums.MethodOfPurchases;
 import jakarta.persistence.*;
 import lombok.*;
 

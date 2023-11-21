@@ -1,18 +1,19 @@
 package com.example.shopp.service;
 
 import com.example.shopp.dto.AuthenticationResponse;
-import com.example.shopp.dto.Enums.Role;
 import com.example.shopp.dto.request.AuthenticationRequest;
 import com.example.shopp.dto.request.RegistrationRequest;
 import com.example.shopp.entity.User;
 import com.example.shopp.repository.UserRepository;
-import com.example.shopp.util.JwtService;
+import com.example.shopp.security.util.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class AuthService {
     private final PasswordEncoder encoder;
     private final JwtService service;
     private final AuthenticationManager manager;
+    private final RoleService roleService;
 
     public AuthenticationResponse register(RegistrationRequest request) {
         var user = User.builder()
@@ -29,7 +31,7 @@ public class AuthService {
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .phoneNumber(request.getPhoneNumber())
-                .role(Role.ADMIN)
+                .roles(List.of(roleService.getUserRole()))
                 .build();
 
         userRepository.save(user);

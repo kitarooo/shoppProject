@@ -1,9 +1,8 @@
 package com.example.shopp.config;
 
-import com.example.shopp.util.JwtAuthenticationFilter;
+import com.example.shopp.security.util.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,7 +42,13 @@ public class SecurityConfig extends WebSecurityConfiguration {
             "/api/v1/admin/**",
             "/swagger*/**",
             "/swagger-ui/**",
-            "/shopp/swagger-ui.html"
+            "/shopp/swagger-ui.html",
+            "/documentation/**",
+            "/v3/api-docs/**"
+    };
+
+    private final String[] test1 = {
+            "/api/v1/admin/allUsers"
     };
 
     @Bean
@@ -51,11 +56,10 @@ public class SecurityConfig extends WebSecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(ADMIN_COMMON).permitAll()
-                        .requestMatchers(USER_COMMON).permitAll()
+                        .requestMatchers(ADMIN_COMMON).hasRole("ADMIN")
+                        .requestMatchers(USER_COMMON).hasRole("USER")
                         .requestMatchers(test).permitAll()
-                        .requestMatchers(PERMIT_ALL)
-                        .permitAll().anyRequest().authenticated())
+                        .requestMatchers(PERMIT_ALL).permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();

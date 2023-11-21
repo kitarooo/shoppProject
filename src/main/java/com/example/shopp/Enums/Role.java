@@ -1,4 +1,4 @@
-package com.example.shopp.dto.Enums;
+/*package com.example.shopp.Enums;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,8 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public enum Role implements GrantedAuthority {
 
-    ADMIN("ADMIN"),
-    USER("USER");
+    ROLE_ADMIN("ROLE_ADMIN"),
+    ROLE_USER("ROLE_USER");
 
     final String name;
 
@@ -20,4 +20,4 @@ public enum Role implements GrantedAuthority {
     public String getAuthority() {
         return this.name;
     }
-}
+}*/

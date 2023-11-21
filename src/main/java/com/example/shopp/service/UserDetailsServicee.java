@@ -1,10 +1,9 @@
 package com.example.shopp.service;
 
 import com.example.shopp.entity.User;
+import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.UserRepository;
-import com.example.shopp.security.UserDetailss;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +19,7 @@ public class UserDetailsServicee implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    @Override
+    /*@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findUserByEmail(email);
 
@@ -28,6 +27,16 @@ public class UserDetailsServicee implements UserDetailsService {
             throw new UsernameNotFoundException("User not found!");
         }
 
-        return new UserDetailss(user.get());
+        return new User(user.get()) {
+        };
+    }*/
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findUserByEmail(email).orElseThrow(
+                () -> new NotFoundException("User not found"));
+
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                user.getPassword(), user.getAuthorities());
     }
 }
