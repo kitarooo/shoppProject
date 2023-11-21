@@ -1,5 +1,6 @@
 package com.example.shopp.service;
 
+import com.example.shopp.Enums.Role;
 import com.example.shopp.dto.AuthenticationResponse;
 import com.example.shopp.dto.request.AuthenticationRequest;
 import com.example.shopp.dto.request.RegistrationRequest;
@@ -22,7 +23,6 @@ public class AuthService {
     private final PasswordEncoder encoder;
     private final JwtService service;
     private final AuthenticationManager manager;
-    private final RoleService roleService;
 
     public AuthenticationResponse register(RegistrationRequest request) {
         var user = User.builder()
@@ -31,7 +31,7 @@ public class AuthService {
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .phoneNumber(request.getPhoneNumber())
-                .roles(List.of(roleService.getUserRole()))
+                .role(Role.ROLE_ADMIN)
                 .build();
 
         userRepository.save(user);

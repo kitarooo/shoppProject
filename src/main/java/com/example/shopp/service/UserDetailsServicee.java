@@ -3,6 +3,7 @@ package com.example.shopp.service;
 import com.example.shopp.entity.User;
 import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.UserRepository;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class UserDetailsServicee implements UserDetailsService {
@@ -33,6 +35,7 @@ public class UserDetailsServicee implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
         User user = userRepository.findUserByEmail(email).orElseThrow(
                 () -> new NotFoundException("User not found"));
 

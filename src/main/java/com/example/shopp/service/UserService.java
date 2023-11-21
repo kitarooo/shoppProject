@@ -1,9 +1,9 @@
 package com.example.shopp.service;
 
+import com.example.shopp.Enums.Role;
 import com.example.shopp.dto.UserDTO;
 import com.example.shopp.entity.User;
 import com.example.shopp.exception.NotFoundException;
-import com.example.shopp.repository.RoleRepository;
 import com.example.shopp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    private final RoleService roleService;
 
 
     public List<User> findAll() {
@@ -40,7 +39,7 @@ public class UserService {
                 .firstName(userDTO.getFirstName())
                 .lastName(userDTO.getLastName())
                 .phoneNumber(userDTO.getPhoneNumber())
-                .roles(List.of(roleService.getUserRole()))
+                .role(Role.ROLE_USER)
                 .build());
         model.setResult("User successfully established");
         return ResponseEntity.ok(model.getResult());
@@ -60,7 +59,7 @@ public class UserService {
                 .firstName(userDTO.getFirstName())
                 .lastName(userDTO.getLastName())
                 .phoneNumber(userDTO.getPhoneNumber())
-                .roles(List.of(roleService.getUserRole()))
+                .role(Role.ROLE_ADMIN)
                 .build());
         model.setResult("User successfully established");
         return ResponseEntity.ok(model.getResult());

@@ -1,4 +1,4 @@
-/*package com.example.shopp.Enums;
+package com.example.shopp.Enums;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,4 +20,4 @@ public enum Role implements GrantedAuthority {
     public String getAuthority() {
         return this.name;
     }
-}*/
+}

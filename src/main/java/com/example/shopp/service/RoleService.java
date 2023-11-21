@@ -1,4 +1,4 @@
-package com.example.shopp.service;
+/*package com.example.shopp.service;
 
 import com.example.shopp.entity.Role;
 import com.example.shopp.repository.RoleRepository;
@@ -12,7 +12,7 @@ public class RoleService {
     private final RoleRepository roleRepository;
 
     public Role getUserRole(){
-        Role roleAdmin = roleRepository.findByName("ROLE_ADMIN").get();
+        Role roleAdmin = roleRepository.findByName("ADMIN").get();
         return roleAdmin;
     }
-}
+}*/

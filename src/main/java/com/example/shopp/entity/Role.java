@@ -1,4 +1,4 @@
-package com.example.shopp.entity;
+/*package com.example.shopp.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,4 +17,4 @@ public class Role {
     private Long id;
 
     private String name;
-}
+}*/
