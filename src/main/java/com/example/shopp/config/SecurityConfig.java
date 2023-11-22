@@ -22,24 +22,26 @@ public class SecurityConfig extends WebSecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
 
     private final String[] PERMIT_ALL = {
-            "/api/v2/**"
+            "/api/v2/**",
     };
 
     private final String[] USER_COMMON = {
             "/api/v1/users/**",
-            "/api/v1/orders/createOrder"
+            "/api/v1/orders/createOrder",
+
+            "/swagger*/**",
+            "/swagger-ui/**",
+            "/shopp/swagger-ui.html",
+            "/documentation/**",
+            "/v3/api-docs/**"
     };
 
     private final String[] ADMIN_COMMON = {
             "/api/v1/admin/**",
             "/api/v1/categories/**",
             "/api/v1/orders/**",
-            "/api/v1/products/**"
-    };
+            "/api/v1/products/**",
 
-    private final String[] test = {
-            "/api/v2/**",
-            "/api/v1/admin/**",
             "/swagger*/**",
             "/swagger-ui/**",
             "/shopp/swagger-ui.html",
@@ -58,7 +60,6 @@ public class SecurityConfig extends WebSecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(ADMIN_COMMON).hasRole("ADMIN")
                         .requestMatchers(USER_COMMON).hasRole("USER")
-                        .requestMatchers(test).permitAll()
                         .requestMatchers(PERMIT_ALL).permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)

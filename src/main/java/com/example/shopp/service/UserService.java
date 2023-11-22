@@ -7,6 +7,8 @@ import com.example.shopp.exception.NotFoundException;
 import com.example.shopp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
+    private final PasswordEncoder passwordEncoder;
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -35,7 +37,7 @@ public class UserService {
 
         userRepository.save(User.builder()
                 .email(userDTO.getEmail())
-                .password(userDTO.getPassword())
+                .password(passwordEncoder.encode(userDTO.getPassword()))
                 .firstName(userDTO.getFirstName())
                 .lastName(userDTO.getLastName())
                 .phoneNumber(userDTO.getPhoneNumber())
@@ -55,7 +57,7 @@ public class UserService {
 
         userRepository.save(User.builder()
                 .email(userDTO.getEmail())
-                .password(userDTO.getPassword())
+                .password(passwordEncoder.encode(userDTO.getPassword()))
                 .firstName(userDTO.getFirstName())
                 .lastName(userDTO.getLastName())
                 .phoneNumber(userDTO.getPhoneNumber())

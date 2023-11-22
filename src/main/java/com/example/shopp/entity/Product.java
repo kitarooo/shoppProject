@@ -1,5 +1,6 @@
 package com.example.shopp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jdk.jfr.Name;
@@ -39,8 +40,10 @@ public class Product {
     private int quantity;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private Category category;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<OrderDetails> orderDetails;
 }

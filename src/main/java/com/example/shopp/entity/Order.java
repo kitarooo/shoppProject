@@ -32,7 +32,7 @@ public class Order {
     @Column
     private MethodOfPurchases methodOfPurchases;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<OrderDetails> details;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

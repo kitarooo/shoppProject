@@ -1,5 +1,6 @@
 package com.example.shopp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
@@ -24,5 +25,6 @@ public class Category {
     private String categoryName;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> products;
 }

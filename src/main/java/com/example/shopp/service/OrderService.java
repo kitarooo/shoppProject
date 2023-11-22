@@ -58,7 +58,7 @@ public class OrderService {
 
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
-            orderRepository.delete(order);
+            orderRepository.deleteOrderByOrderId(orderId);
             model.setResult("Order with ID " + orderId + " was deleted!");
 
             return ResponseEntity.ok(model.getResult());
