@@ -23,17 +23,16 @@ public class SecurityConfig extends WebSecurityConfiguration {
 
     private final String[] PERMIT_ALL = {
             "/api/v2/**",
-    };
-
-    private final String[] USER_COMMON = {
-            "/api/v1/users/**",
-            "/api/v1/orders/createOrder",
-
             "/swagger*/**",
             "/swagger-ui/**",
             "/shopp/swagger-ui.html",
             "/documentation/**",
             "/v3/api-docs/**"
+    };
+
+    private final String[] USER_COMMON = {
+            "/api/v1/users/**",
+            "/api/v1/orders/createOrder",
     };
 
     private final String[] ADMIN_COMMON = {
@@ -41,12 +40,6 @@ public class SecurityConfig extends WebSecurityConfiguration {
             "/api/v1/categories/**",
             "/api/v1/orders/**",
             "/api/v1/products/**",
-
-            "/swagger*/**",
-            "/swagger-ui/**",
-            "/shopp/swagger-ui.html",
-            "/documentation/**",
-            "/v3/api-docs/**"
     };
 
     private final String[] test1 = {
