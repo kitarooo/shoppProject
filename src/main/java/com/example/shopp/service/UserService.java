@@ -103,7 +103,7 @@ public class UserService {
         return ResponseEntity.ok(model.getResult());
     }
 
-    public ResponseEntity<Object> deleteUserById(Long id){
+    public ResponseEntity<Object> deleteUserById(Long id) {
         Model model = new Model();
         if (userRepository.findById(id).isEmpty()) {
             model.setResult("User not deleted, because user not found!");

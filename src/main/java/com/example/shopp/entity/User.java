@@ -40,8 +40,6 @@ public class User implements UserDetails {
     private String lastName;
     private Integer phoneNumber;
 
-    /*@Embedded
-    private UserInfo userInfo;*/
     @Enumerated(EnumType.STRING)
     private Role role;
 

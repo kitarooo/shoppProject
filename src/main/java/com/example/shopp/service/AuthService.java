@@ -31,7 +31,7 @@ public class AuthService {
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .phoneNumber(request.getPhoneNumber())
-                .role(Role.ROLE_ADMIN)
+                .role(Role.ROLE_USER)
                 .build();
 
         userRepository.save(user);

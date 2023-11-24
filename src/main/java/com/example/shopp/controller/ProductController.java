@@ -20,7 +20,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/allProducts")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     @Operation(summary = "get all products", description = "Get all products for ADMIN")
     public List<Product> findAllProducts() {
         return productService.findAllProducts();
@@ -33,14 +33,14 @@ public class ProductController {
         return productService.createProduct(productInfo);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getProductById/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     @Operation(summary = "get product by id", description = "For get product by id")
     public ProductInfo findProductById(@PathVariable Long id) {
         return productService.getProductById(id);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateProduct/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     @Operation(summary = "update product", description = "For update product by id")
     public ResponseEntity<Object> updateProductById(@PathVariable Long id, ProductInfo productInfo) {
